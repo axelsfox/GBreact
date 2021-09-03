@@ -31,6 +31,30 @@
 .Message-box {
   border: #310011 solid 1px;
   margin-top: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.Message-chat {
+  display: flex;
+}
+
+.Message-number {
+  width: 10%;
+  border-bottom: #310011 solid 1px;
+  text-align: center;
+}
+
+.Message-body {
+  width: 60%;
+  border-bottom: #310011 solid 1px;
+  text-align: center;
+}
+
+.Message-autor {
+  width: 30%;
+  border-bottom: #310011 solid 1px;
+  text-align: center;
 }
 
 .Message-form {
