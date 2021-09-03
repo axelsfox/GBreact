@@ -24,6 +24,21 @@
   background-color: #d65e86;
   color: #310011;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin: 10px 0px;
 
+}
+
+.Message-box {
+  border: #310011 solid 1px;
+  margin-top: 5px;
+}
+
+.Message-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Message-input {
+  margin: 5px;
 }

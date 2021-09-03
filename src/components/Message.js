@@ -1,14 +1,25 @@
+import React, {useState} from 'react';
 import '../App.css';
 
 function MyMessage(props){
-  return (
+  const [Textform, setTextform] = useState('');
+  
+ function EntNewMessage(event){
+    setTextform(event.target.value)
+  }
+ 
+
+   return (
     <div className="Message-text">
      <h3>New message here for {props.name}!</h3>
-     <button className="Message-btn">just try the button!</button> 
+     <form className="Message-form" action="#">
+    <input className="Message-input" value={Textform} onChange={EntNewMessage} type="text" placeholder="enter u message"></input>
+    <button type="button" className="Message-btn"  onClick={props.onClick({Textform})}>Send Message</button> 
+    </form>
+     
      </div>
    
   );
 }
-//кнопка просто баловство, чтобы посмотреть, как работают другие элементы
 
 export default MyMessage;
