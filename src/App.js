@@ -13,7 +13,7 @@ function App(props) {
 
   useEffect(()=> {
     if (MessageList[MessageList.length - 1]?.autor === 'You') {
-     setTimeout(setMessageList, 1500, (MessageList => [...MessageList, {text: 'i\'robot?', autor: 'ME'}]))
+     setTimeout(setMessageList, 1500, (MessageList => [...MessageList, {text: 'i\'m robot?', autor: 'ME'}]))
     };
   }, [MessageList]);
 
