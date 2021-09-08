@@ -25,6 +25,7 @@ const theme = createTheme({
 const useStyles = makeStyles({
   chat: {
     width: 500,
+    height: 500,
     margin: 30,
     padding: 20,
     textAlign: 'left'
@@ -81,7 +82,8 @@ function App(props) {
       onClick = {NewMessage}
       input={inputRef}
       />
-    
+    <ChatList chats = {newChatList} />
+
       <List className={classes.chat}>
           <ListItem className={classes.chatItem}>
           <ListItemText>#</ListItemText>
@@ -97,7 +99,7 @@ function App(props) {
       </ListItem>)}
       </List>    
   </ThemeProvider>
-  <ChatList chats = {newChatList} />
+  
       </div>
   
   );
