@@ -34,14 +34,12 @@ const classes = useStyles();
           <ListItemText>Chat Name</ListItemText>
     </ListItem>
       
-      {chats.map((id, name) => 
-      <ListItem key={chats.id}> 
-          <ListItemText>{chats.id}</ListItemText>
-          <ListItemText>{chats.name}</ListItemText>
-    </ListItem>) 
-    }
-
-      </List>    
+      {chats.map(n =>  
+      <ListItem key={n.id}> 
+          <ListItemText>{n.id}</ListItemText>
+          <ListItemText>{n.name}</ListItemText>
+    </ListItem>) }    
+   </List>    
   
   </Card>  
     
