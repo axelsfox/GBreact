@@ -8,8 +8,8 @@ import Chat from './Chat'
 import NotFound from "./NotFound";
 import Profile from "./Profile"
 
-
 export const Routes = () => {
+      
     return (
         <BrowserRouter>
     <Card style={{height: 300, fontWeight: 'bold'}}>  
@@ -33,7 +33,7 @@ export const Routes = () => {
            <Route path="/" exact>
                <HomePage />
             </Route> 
-            <Route path="/chats">
+            <Route path="/chats/:chatId?">
                <Chat />
             </Route> 
             <Route path="/profile">

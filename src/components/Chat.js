@@ -1,13 +1,13 @@
 import '../App.css';
-import React, {useEffect, useState, useRef, useParams} from 'react';
-import Message from './Message';
-import ChatList from './ChatList';
+import React, {useEffect, useState, useRef} from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { createTheme, ThemeProvider }  from "@material-ui/core";
 import deepPurple  from "@material-ui/core/colors/deepPurple";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { makeStyles } from '@material-ui/core/styles';
+import Message from './Message';
+import ChatList from './ChatList';
 
 //тема с цветами
 const theme = createTheme({
@@ -55,13 +55,10 @@ function Chat() {
         name: 'Secret Chat'
   }
 ];
-
-
   function newMessage(pm) {
     setmessageList(messageList => [...messageList, {text: pm, autor: 'You'}]);
     inputRef.current.focus();
   }
-
   useEffect(() => {
     inputRef.current.focus();
   }, []);

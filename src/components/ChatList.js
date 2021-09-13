@@ -1,7 +1,3 @@
-//4. Добавить “массив чатов” - массив объектов с полями name и id (в качестве id можно выбрать любую уникальную строку). 
-//Добавить список чатов - он должен отображаться слева от списка сообщений. 
-//Используйте List и ListItem из material-ui (список пока не несет никакой функциональности).
-
 import React from 'react';
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
     root: {
@@ -23,12 +20,15 @@ const useStyles = makeStyles({
       fontSize: 20,
       fontWeight: 'bold',
     },
+    textlinks: {
+      textDecoration:'none',
+      color: 'secondary'
+    }
         
   });
 
 
 function ChatList({chats}){
-
 const classes = useStyles(); 
          
     return (
@@ -41,9 +41,9 @@ const classes = useStyles();
           </Typography>
     </ListItem>
       
-      {chats.map(n =>  
-      <ListItem key={n.id}> 
-          <ListItemText>{n.name}</ListItemText>
+      {chats.map(chat =>  
+      <ListItem key={chat.id}> 
+          <ListItemText ><Link className={classes.textlinks} to={`/chats/${chat.id}`}>{chat.name}</Link></ListItemText>
     </ListItem>) }    
    </List>    
   
