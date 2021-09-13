@@ -1,13 +1,15 @@
 import './App.css';
 import React, {useEffect, useState, useRef} from 'react';
 import Message from './components/Message';
+import ChatList from './components/Chats';
+//import Profile from './components/Profile';
 import { createTheme, ThemeProvider }  from "@material-ui/core";
 import deepPurple  from "@material-ui/core/colors/deepPurple";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
-import ChatList from './components/Chats';
+
 
 
 //тема с цветами
@@ -58,7 +60,7 @@ function App(props) {
 ];
 
 
-  function NewMessage(pm) {
+  function newMessage(pm) {
     setmessageList(messageList => [...messageList, {text: pm, autor: 'You'}]);
     inputRef.current.focus();
   }
@@ -79,7 +81,7 @@ function App(props) {
       <div className="App">
   <ThemeProvider theme={theme}>
       <Message name= {props.name}
-      onClick = {NewMessage}
+      onClick = {newMessage}
       input={inputRef}
       />
     <ChatList chats = {newChatList} />
@@ -97,7 +99,8 @@ function App(props) {
           <ListItemText>{message.text}</ListItemText>
           <ListItemText>{message.autor}</ListItemText>
       </ListItem>)}
-      </List>    
+      </List> 
+     
   </ThemeProvider>
   
       </div>
