@@ -20,15 +20,15 @@ const useStyles = makeStyles({
   
 });
 
-function HomePage (){
+function NotFound (){
     const classes = useStyles(); 
   
     return (
  
 <Card className={classes.root}>
   <CardContent>
-  <Typography style={{fontSize: '16px', fontWeight: 'bold'}} color="secondary">
-  HomePage
+  <Typography style={{fontSize: '16px', fontWeight: 'italic'}} color="secondary">
+  There is no such page like that you searching
   </Typography>
 </CardContent>  
 </Card>  
@@ -36,4 +36,4 @@ function HomePage (){
   );
 }
 
-export default HomePage;
+export default NotFound;
