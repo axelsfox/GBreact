@@ -3,6 +3,8 @@ import React from 'react';
 import { createTheme, ThemeProvider }  from "@material-ui/core";
 import deepPurple  from "@material-ui/core/colors/deepPurple";
 import { Routes } from './components/Routes';
+import { Provider } from "react-redux";
+import { store } from './components/store';
 
 //тема с цветами
 const theme = createTheme({
@@ -16,18 +18,16 @@ const theme = createTheme({
    },
 });
 
-
 function App() {
   
   return (
+      <Provider store={store}>
+      <ThemeProvider theme={theme}>
       <div className="App">
-  <ThemeProvider theme={theme}>
       <Routes />
-     
-  </ThemeProvider>
-  
       </div>
-  
+      </ThemeProvider>
+      </Provider>
   );
 }
 
