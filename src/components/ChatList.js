@@ -1,12 +1,33 @@
 import React, {useState} from 'react';
 import List from '@material-ui/core/List';
-import { useStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom'
-import {TextField, Button} from "@material-ui/core";
+import { TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+
+const useStyles = makeStyles({
+    root: {
+      width: 500,
+      height: 500,
+      textAlign: 'left',
+      margin: 30,
+      padding: 20,
+    },
+
+    header: {
+      fontSize: 20,
+      fontWeight: 'bold',
+    },
+    textlinks: {
+      textDecoration:'none',
+      color: 'secondary'
+    }
+        
+  });
 
 
 function ChatList(props){
