@@ -8,6 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Message from './Message';
 import ChatList from './ChatList';
+import { useParams } from 'react-router';
 
 //тема с цветами
 const theme = createTheme({
@@ -38,10 +39,21 @@ const useStyles = makeStyles({
 });
 
 function Chat() {
-  const [messageList, setmessageList] = useState([]);
+
+  const initialMessages = [
+    {id: 1, chatid: 111, text: "первый чат", autor: 'HUMAN'},
+    {id: 2, chatid: 121, text: "второй чат", autor: 'HUMAN'},
+    {id: 3, chatid: 121, text: "второй чат", autor: 'HUMAN'},
+    {id: 4, chatid: 131, text: "и еще один чат", autor: 'HUMAN'},
+    {id: 5, chatid: 131, text: "и еще один чат", autor: 'HUMAN'},
+    {id: 6, chatid: 131, text: "и еще один чат", autor: 'HUMAN'}
+  ];
+
+  const {chatId} = useParams();
   const classes = useStyles();
   const inputRef = useRef(null);
-  const newChatList = [
+  const [messageList, setmessageList] = useState(initialMessages);
+  const [newChatList, setnewChatList] = useState([
     {
         id: 111,
         name: 'Main Chat'
@@ -54,23 +66,34 @@ function Chat() {
         id: 131,
         name: 'Secret Chat'
   }
-];
-  function newMessage(pm) {
-    setmessageList(messageList => [...messageList, {text: pm, autor: 'You'}]);
+]);
+
+
+
+ function newMessage(pm) {
+    setmessageList(
+        messageList => [...messageList, {id: new Date(), chatid: Number(chatId), text: pm, autor: 'You'}]);
+        /*console.log(messageList);*/
     inputRef.current.focus();
   }
+
+ function addNewchat (name){
+  setnewChatList (newChatList => [...newChatList, {id: newChatList[newChatList.length - 1].id + 10, name: name}])
+  
+  };
   useEffect(() => {
     inputRef.current.focus();
   }, []);
    
   useEffect(()=> {
     if (messageList[messageList.length - 1]?.autor === 'You') {
-    setTimeout(setmessageList, 1500, (messageList => [...messageList, {text: 'i\'m robot?', autor: 'ME'}]))
+    setTimeout(setmessageList, 1500, (messageList => [...messageList, {id: new Date(), chatid: Number(chatId), text: 'i\'m robot?', autor: 'ME'}]))
     };
     clearTimeout();
 
   }, [messageList]);
 
+  
   return (
       <div className="App">
   <ThemeProvider theme={theme}>
@@ -78,7 +101,8 @@ function Chat() {
       onClick = {newMessage}
       input={inputRef}
       />
-    <ChatList chats = {newChatList} />
+    <ChatList chats = {newChatList}
+      onClick = {addNewchat}/>
 
       <List className={classes.chat}>
           <ListItem className={classes.chatItem}>
@@ -87,11 +111,13 @@ function Chat() {
           <ListItemText>Autor</ListItemText>
       </ListItem>
       
-      {messageList.map((message, idx) => 
-      <ListItem className={classes.chatItem} key={idx + 1}> 
-          <ListItemText>{idx + 1}</ListItemText>
-          <ListItemText>{message.text}</ListItemText>
-          <ListItemText>{message.autor}</ListItemText>
+      {messageList.filter(message => message.chatid === Number(chatId))   
+      
+      .map((filteredMessage, idx) => 
+      <ListItem className={classes.chatItem} key={filteredMessage.id}> 
+          <ListItemText>{idx+1}</ListItemText>
+          <ListItemText>{filteredMessage.text}</ListItemText>
+          <ListItemText>{filteredMessage.autor}</ListItemText>
       </ListItem>)}
       </List> 
      
