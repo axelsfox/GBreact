@@ -10,7 +10,6 @@ import Message from './Message';
 import ChatList from './ChatList';
 import { useParams } from 'react-router';
 
-//тема с цветами
 const theme = createTheme({
   palette:{
     primary: {

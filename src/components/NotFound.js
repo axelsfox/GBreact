@@ -5,7 +5,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-//Добавить домашнюю страницу по адресу “/” со списком ссылок на страницу чатов и страницу профиля.
 const useStyles = makeStyles({
   root: {
     width: 500,
