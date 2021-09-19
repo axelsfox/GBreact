@@ -39,20 +39,10 @@ const useStyles = makeStyles({
 });
 
 function Chat() {
-
-  const initialMessages = [
-    {id: 1, chatid: 111, text: "первый чат", autor: 'HUMAN'},
-    {id: 2, chatid: 121, text: "второй чат", autor: 'HUMAN'},
-    {id: 3, chatid: 121, text: "второй чат", autor: 'HUMAN'},
-    {id: 4, chatid: 131, text: "и еще один чат", autor: 'HUMAN'},
-    {id: 5, chatid: 131, text: "и еще один чат", autor: 'HUMAN'},
-    {id: 6, chatid: 131, text: "и еще один чат", autor: 'HUMAN'}
-  ];
-
-  const {chatId} = useParams();
+  const { chatId} = useParams();
   const classes = useStyles();
   const inputRef = useRef(null);
-  const [messageList, setmessageList] = useState(initialMessages);
+  const [messageList, setmessageList] = useState([]);
   const [newChatList, setnewChatList] = useState([
     {
         id: 111,
@@ -68,12 +58,19 @@ function Chat() {
   }
 ]);
 
-
+  const initialMessages = {
+    "chat-1": [
+    {text: "111111", autor: 'HUMAN', id: "mess-1"},
+    {text: "222222", autor: 'HUMAN', id: "mess-2"}
+  ],
+  "chat-2": [
+    {text: "3333", autor: 'HUMAN', id: "mess-1"},
+    {text: "444444", autor: 'HUMAN', id: "mess-2"}
+  ],
+};
 
  function newMessage(pm) {
-    setmessageList(
-        messageList => [...messageList, {id: new Date(), chatid: Number(chatId), text: pm, autor: 'You'}]);
-        /*console.log(messageList);*/
+    setmessageList(messageList => [...messageList, {text: pm, autor: 'You'}]);
     inputRef.current.focus();
   }
 
@@ -87,7 +84,7 @@ function Chat() {
    
   useEffect(()=> {
     if (messageList[messageList.length - 1]?.autor === 'You') {
-    setTimeout(setmessageList, 1500, (messageList => [...messageList, {id: new Date(), chatid: Number(chatId), text: 'i\'m robot?', autor: 'ME'}]))
+    setTimeout(setmessageList, 1500, (messageList => [...messageList, {text: 'i\'m robot?', autor: 'ME'}]))
     };
     clearTimeout();
 
@@ -111,13 +108,11 @@ function Chat() {
           <ListItemText>Autor</ListItemText>
       </ListItem>
       
-      {messageList.filter(message => message.chatid === Number(chatId))   
-      
-      .map((filteredMessage, idx) => 
-      <ListItem className={classes.chatItem} key={filteredMessage.id}> 
-          <ListItemText>{idx+1}</ListItemText>
-          <ListItemText>{filteredMessage.text}</ListItemText>
-          <ListItemText>{filteredMessage.autor}</ListItemText>
+      {messageList.map((message, idx) => 
+      <ListItem className={classes.chatItem} key={idx + 1}> 
+          <ListItemText>{idx + 1}</ListItemText>
+          <ListItemText>{message.text}</ListItemText>
+          <ListItemText>{message.autor}</ListItemText>
       </ListItem>)}
       </List> 
      
