@@ -1,5 +1,5 @@
 import '../App.css';
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {TextField, Button} from "@material-ui/core";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -33,14 +33,22 @@ const useStyles = makeStyles({
 
 function Profile (){
     const classes = useStyles(); 
+    const { name } = useSelector((state) => state.profile);
     const iSshowName = useSelector((state) => state.showName);
     const dispatch = useDispatch()
-    
-    
-    const setShowName = () => {
-      dispatch(showNameAction)
+    const [value, setValue] = useState('');
 
-    };
+  const setShowName = () => {
+      dispatch(showNameAction)
+   };
+  const handleChange = useCallback((e) => {
+      setValue(e.target.value);
+   }, []);
+
+  const setName = () => {};
+  
+    
+
   
 
   
@@ -53,7 +61,7 @@ function Profile (){
   </Typography>
      
     <form className={classes.form}>
-        <TextField id="outlined-basic" label= 'Name'/>
+        <TextField id="outlined-basic" label= 'Name' value={value} onChange={handleChange}/>
         {iSshowName && 
         <TextField id="outlined-basic" label="Second Name" name="checkedH"/>}
         <FormControlLabel
@@ -64,7 +72,8 @@ function Profile (){
       />  
         
         <TextField id="outlined-basic" label="Age" />
-          <Button style={{margin: '20px'}} variant="contained" type="button" color="secondary">
+          <Button style={{margin: '20px'}} variant="contained" type="button" color="secondary"
+          onClick={setName}>
             Save
           </Button>
     </form>
