@@ -21,8 +21,8 @@ const theme = createTheme({
 function App() {
   
   return (
-      <Provider store={store}>
-      <ThemeProvider theme={theme}>
+      <Provider store = { store }>
+      <ThemeProvider theme = { theme }>
       <div className="App">
       <Routes />
       </div>

@@ -1,5 +1,5 @@
 import '../App.css';
-import React, {useEffect, useState, useRef} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { createTheme, ThemeProvider }  from "@material-ui/core";
 import deepPurple  from "@material-ui/core/colors/deepPurple";
@@ -9,6 +9,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Message from './Message';
 import ChatList from './ChatList';
 import { useParams } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
+import { addMessage } from "./store/messages/actions";
+import { addChat, deleteChat } from './store/chats/actions';
+import { useEffect } from 'react';
+
 
 const theme = createTheme({
   palette:{
@@ -38,70 +43,55 @@ const useStyles = makeStyles({
 });
 
 function Chat() {
-
-  const initialMessages = [
-    {id: 1, chatid: 111, text: "первый чат", autor: 'HUMAN'},
-    {id: 2, chatid: 121, text: "второй чат", autor: 'HUMAN'},
-    {id: 3, chatid: 121, text: "второй чат", autor: 'HUMAN'},
-    {id: 4, chatid: 131, text: "и еще один чат", autor: 'HUMAN'},
-    {id: 5, chatid: 131, text: "и еще один чат", autor: 'HUMAN'},
-    {id: 6, chatid: 131, text: "и еще один чат", autor: 'HUMAN'}
-  ];
+  const AUTHORS = {
+    HUMAN: "human",
+    bot: "bot",};
 
   const {chatId} = useParams();
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const inputRef = useRef(null);
-  const [messageList, setmessageList] = useState(initialMessages);
-  const [newChatList, setnewChatList] = useState([
-    {
-        id: 111,
-        name: 'Main Chat'
-    },
-    {
-        id: 121,
-        name: 'Friend Chat'
-    },
-    {
-        id: 131,
-        name: 'Secret Chat'
-  }
-]);
+  const profileName = useSelector(state => state.profile.name);
+  const chatsList = useSelector(state => state.chats.chatsList);
+  const initialMessages = useSelector(state => state.messages.messageList);
 
 
-
- function newMessage(pm) {
-    setmessageList(
-        messageList => [...messageList, {id: new Date(), chatid: Number(chatId), text: pm, autor: 'You'}]);
-        /*console.log(messageList);*/
-    inputRef.current.focus();
-  }
-
- function addNewchat (name){
-  setnewChatList (newChatList => [...newChatList, {id: newChatList[newChatList.length - 1].id + 10, name: name}])
   
-  };
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
-   
-  useEffect(()=> {
-    if (messageList[messageList.length - 1]?.autor === 'You') {
-    setTimeout(setmessageList, 1500, (messageList => [...messageList, {id: new Date(), chatid: Number(chatId), text: 'i\'m robot?', autor: 'ME'}]))
-    };
-    clearTimeout();
+  function addNewChat (name) {
+  dispatch(addChat(name));
+ };
 
-  }, [messageList]);
+ function delChat (id) {
+  dispatch(deleteChat(id));
+ };
 
+ 
+ function newMessage(text) {
+    dispatch(addMessage(chatId, text))
+  }
+
+  /*useEffect(() => {
+    let timeout;
+    const curMess = initialMessages[chatId];
+
+    if (!!chatId && curMess?.[curMess.length - 1]?.author === AUTHORS.HUMAN) {
+      timeout = setTimeout(() => {
+        newMessage("I am bot", AUTHORS.bot);
+      }, 3000);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [initialMessages]);*/
+ 
   
   return (
       <div className="App">
   <ThemeProvider theme={theme}>
       <Message 
       onClick = {newMessage}
-      input={inputRef}
       />
-    <ChatList chats = {newChatList}
-      onClick = {addNewchat}/>
+    <ChatList chats = {chatsList}
+              addChat = {addNewChat}
+              delChat = {delChat} />
 
       <List className={classes.chat}>
           <ListItem className={classes.chatItem}>
@@ -110,13 +100,11 @@ function Chat() {
           <ListItemText>Autor</ListItemText>
       </ListItem>
       
-      {messageList.filter(message => message.chatid === Number(chatId))   
-      
-      .map((filteredMessage, idx) => 
-      <ListItem className={classes.chatItem} key={filteredMessage.id}> 
+      {(initialMessages[chatId] || []).map((message, idx) => 
+      <ListItem className={classes.chatItem} key={message.id}> 
           <ListItemText>{idx+1}</ListItemText>
-          <ListItemText>{filteredMessage.text}</ListItemText>
-          <ListItemText>{filteredMessage.autor}</ListItemText>
+          <ListItemText>{message.text}</ListItemText>
+          <ListItemText>{message.autor}</ListItemText>
       </ListItem>)}
       </List> 
      

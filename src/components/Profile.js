@@ -9,9 +9,8 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { showNameAction } from './store/profile/actions';
+import { showNameAction, changeName } from './store/profile/actions';
 import { useSelector, useDispatch } from 'react-redux';
-
 
 
 const useStyles = makeStyles({
@@ -33,8 +32,8 @@ const useStyles = makeStyles({
 
 function Profile (){
     const classes = useStyles(); 
-    const { name } = useSelector((state) => state.profile);
-    const iSshowName = useSelector((state) => state.showName);
+    const name = useSelector((state) => state.profile.name);
+    const iSshowName = useSelector((state) => state.profile.showName);
     const dispatch = useDispatch()
     const [value, setValue] = useState('');
 
@@ -45,11 +44,11 @@ function Profile (){
       setValue(e.target.value);
    }, []);
 
-  const setName = () => {};
+  const setName = useCallback(() => {
+    dispatch(changeName(value))
+  }, [dispatch, value]);
   
-    
-
-  
+     
 
   
     return (
@@ -61,7 +60,7 @@ function Profile (){
   </Typography>
      
     <form className={classes.form}>
-        <TextField id="outlined-basic" label= 'Name' value={value} onChange={handleChange}/>
+        <TextField id="outlined-basic" label= {name} value={value} onChange={handleChange}/>
         {iSshowName && 
         <TextField id="outlined-basic" label="Second Name" name="checkedH"/>}
         <FormControlLabel

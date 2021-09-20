@@ -24,7 +24,18 @@ const useStyles = makeStyles({
     },
     textlinks: {
       textDecoration:'none',
-      color: 'secondary'
+      color: 'secondary',
+      marginBottom: 10,
+    },
+    delButton: {
+      position: 'absolute',
+      width: 50,
+      height: 50,
+      right: 40,
+
+    },
+    contener: {
+      position: 'relative'
     }
         
   });
@@ -38,10 +49,18 @@ function ChatList(props){
     setnewname(event.target.value)
   };
   
-  function handleClick (event){
+  function addNewChat (event){
     event.preventDefault();
-    props.onClick(newname);
-  }
+    props.addChat(newname);
+    setnewname('')
+};
+
+function deleteChat (event){
+  event.preventDefault();
+  props.delChat(event.target.value);
+   
+};
+
            
       return (
      
@@ -57,12 +76,15 @@ function ChatList(props){
         <ListItem key={chat.id}> 
             <ListItemText >
               <Link className={classes.textlinks} to={`/chats/${chat.id}`}>{chat.name}</Link>
+              <Button onClick={deleteChat} className={classes.delButton} id = {chat.id} variant="contained" type="click" color="secondary">
+              Delete
+            </Button>
             </ListItemText>
             
       </ListItem>) } 
           
-  <ListItem>
-  <form onSubmit={handleClick}>
+  <ListItem className={classes.contener}>
+  <form onSubmit={addNewChat}>
           <TextField className={classes.text} id="outlined-basic" value= {newname} onChange={entNewChat} label="New Chat Name" />
             <Button style={{margin: '20px'}} variant="contained" type="submit" color="secondary">
               Add
@@ -79,7 +101,7 @@ function ChatList(props){
       );
     }
     
-    export default ChatList;
+  export default ChatList;
   
    
 
