@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import '../App.css';
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
@@ -45,20 +46,19 @@ function ChatList(props){
   const classes = useStyles(); 
   const [newname, setnewname] = useState('');
   
-  function entNewChat(event){
-    setnewname(event.target.value)
-  };
+ function entNewChat(event){
+ setnewname(event.target.value)
+};
   
-  function addNewChat (event){
-    event.preventDefault();
-    props.addChat(newname);
-    setnewname('')
+function addNewChat (event){
+  event.preventDefault();
+  props.addChat(newname || 'noname');
+  setnewname('')
 };
 
-function deleteChat (event){
-  event.preventDefault();
-  props.delChat(event.target.value);
-   
+function deleteChat (e){
+  e.preventDefault();
+  props.delChat(e.target.id)
 };
 
            
@@ -76,10 +76,10 @@ function deleteChat (event){
         <ListItem key={chat.id}> 
             <ListItemText >
               <Link className={classes.textlinks} to={`/chats/${chat.id}`}>{chat.name}</Link>
-              <Button onClick={deleteChat} className={classes.delButton} id = {chat.id} variant="contained" type="click" color="secondary">
+             <button class="delButton" onClick={deleteChat} id = {chat.id} type="click">
               Delete
-            </Button>
-            </ListItemText>
+            </button>
+          </ListItemText>
             
       </ListItem>) } 
           

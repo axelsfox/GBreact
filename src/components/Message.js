@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 
+
 const useStyles = makeStyles({
   root: {
     width: 500,
@@ -22,17 +23,17 @@ const useStyles = makeStyles({
 });
 
 function MyMessage(props){
+  const classes = useStyles(); 
   const [textform, settextform] = useState('');
- 
+
 
  function entNewMessage(event){
     settextform(event.target.value)
   };
-  const classes = useStyles(); 
-
+  
   function handleClick (event){
     event.preventDefault();
-    props.onClick(textform);
+    props.onClickMes(textform);
   }
     
   return (

@@ -2,3 +2,10 @@
   display: flex;
 
 }
+
+.delButton {
+  width: 50;
+  height: 50;
+  background-color: rgb(125, 91, 156);
+  margin: 0 30px;
+}

@@ -1,0 +1,1 @@
+export const selectorVisibleMessages = state => state.messages.messageList;

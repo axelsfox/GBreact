@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { showNameAction, changeName } from './store/profile/actions';
 import { useSelector, useDispatch } from 'react-redux';
+import {selectorProfileName, selectorIsShowName} from './store/profile/selectors'
 
 
 const useStyles = makeStyles({
@@ -32,8 +33,8 @@ const useStyles = makeStyles({
 
 function Profile (){
     const classes = useStyles(); 
-    const name = useSelector((state) => state.profile.name);
-    const iSshowName = useSelector((state) => state.profile.showName);
+   const name = useSelector(selectorProfileName);
+    const iSshowName = useSelector(selectorIsShowName);
     const dispatch = useDispatch()
     const [value, setValue] = useState('');
 
@@ -48,7 +49,7 @@ function Profile (){
     dispatch(changeName(value))
   }, [dispatch, value]);
   
-     
+  console.log(selectorProfileName	);   
 
   
     return (

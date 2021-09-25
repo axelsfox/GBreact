@@ -12,7 +12,10 @@ import { useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { addMessage } from "./store/messages/actions";
 import { addChat, deleteChat } from './store/chats/actions';
-import { useEffect } from 'react';
+import {selectorProfileName} from './store/profile/selectors';
+import {selectorChatsList} from './store/chats/selectors';
+import {selectorVisibleMessages} from './store/messages/selectors';
+
 
 
 const theme = createTheme({
@@ -43,51 +46,31 @@ const useStyles = makeStyles({
 });
 
 function Chat() {
-  const AUTHORS = {
-    HUMAN: "human",
-    bot: "bot",};
-
+  const classes = useStyles();
   const {chatId} = useParams();
   const dispatch = useDispatch();
-  const classes = useStyles();
-  const profileName = useSelector(state => state.profile.name);
-  const chatsList = useSelector(state => state.chats.chatsList);
-  const initialMessages = useSelector(state => state.messages.messageList);
+  const autor = useSelector(selectorProfileName);
+  const chatsList = useSelector(selectorChatsList);
+  const visibleMessages = useSelector(selectorVisibleMessages);
 
 
-  
   function addNewChat (name) {
   dispatch(addChat(name));
  };
 
- function delChat (id) {
+function delChat (id) {
   dispatch(deleteChat(id));
  };
-
- 
- function newMessage(text) {
-    dispatch(addMessage(chatId, text))
+function newMessage(text) {
+    dispatch(addMessage(chatId, text, autor))
   }
 
-  /*useEffect(() => {
-    let timeout;
-    const curMess = initialMessages[chatId];
-
-    if (!!chatId && curMess?.[curMess.length - 1]?.author === AUTHORS.HUMAN) {
-      timeout = setTimeout(() => {
-        newMessage("I am bot", AUTHORS.bot);
-      }, 3000);
-    }
-
-    return () => clearTimeout(timeout);
-  }, [initialMessages]);*/
- 
   
   return (
       <div className="App">
   <ThemeProvider theme={theme}>
       <Message 
-      onClick = {newMessage}
+      onClickMes = {newMessage}
       />
     <ChatList chats = {chatsList}
               addChat = {addNewChat}
@@ -100,7 +83,7 @@ function Chat() {
           <ListItemText>Autor</ListItemText>
       </ListItem>
       
-      {(initialMessages[chatId] || []).map((message, idx) => 
+      {(visibleMessages[chatId] || []).map((message, idx) => 
       <ListItem className={classes.chatItem} key={message.id}> 
           <ListItemText>{idx+1}</ListItemText>
           <ListItemText>{message.text}</ListItemText>
