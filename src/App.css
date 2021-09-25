@@ -1,29 +1,11 @@
-.App-header {
-  background-color: #0b5bfa;
+.App {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
+
 }
 
-.Message-text {
-  color: white;
-  background-color: #88002d;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: #88002d 1px solid;
-}
-
-.Message-btn {
-  height: 50px;
-  width: 100px;
-  border-radius: 15%;
-  background-color: #d65e86;
-  color: #310011;
-  font-weight: bold;
-  margin-bottom: 30px;
-
+.delButton {
+  width: 50;
+  height: 50;
+  background-color: rgb(125, 91, 156);
+  margin: 0 30px;
 }
