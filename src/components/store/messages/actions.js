@@ -9,3 +9,15 @@ export const addMessage = (chatId, message, autor) => ({
 }
 });
 
+let timeout;
+
+export const addMessageWithReplay = (chatId, text, autor) => (dispatch) => {
+  dispatch(addMessage(chatId, text, autor));
+
+  if(autor !== 'bot'){
+  clearTimeout(timeout);
+  timeout = setTimeout(() => {
+      dispatch(addMessage(chatId, "hey", 'bot'));
+    }, 1000);
+  }
+}

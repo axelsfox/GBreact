@@ -10,11 +10,11 @@ import Message from './Message';
 import ChatList from './ChatList';
 import { useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
-import { addMessage } from "./store/messages/actions";
 import { addChat, deleteChat } from './store/chats/actions';
 import {selectorProfileName} from './store/profile/selectors';
 import {selectorChatsList} from './store/chats/selectors';
 import {selectorVisibleMessages} from './store/messages/selectors';
+import {addMessageWithReplay} from "./store/messages/actions";
 
 
 
@@ -62,7 +62,7 @@ function delChat (id) {
   dispatch(deleteChat(id));
  };
 function newMessage(text) {
-    dispatch(addMessage(chatId, text, autor))
+    dispatch(addMessageWithReplay(chatId, text, autor))
   }
 
   
