@@ -7,6 +7,7 @@ import HomePage from "./Homepage";
 import Chat from './Chat'
 import NotFound from "./NotFound";
 import Profile from "./Profile"
+import News from "./News"
 
 export const Routes = () => {
       
@@ -25,6 +26,11 @@ export const Routes = () => {
          <ListItem>
            <Link style={{textDecoration: 'none'}} to="/chats">CHATS</Link>
         </ListItem>
+
+        <ListItem>
+           <Link style={{textDecoration: 'none'}} to="/news">NEWS</Link>
+        </ListItem>
+
     </List>
      
      </Card>  
@@ -39,10 +45,13 @@ export const Routes = () => {
             <Route path="/profile">
                <Profile />
             </Route> 
+            <Route path="/news">
+               <News />
+            </Route> 
             <Route >
                <NotFound/>
             </Route> 
-        </Switch>
+         </Switch>
         </BrowserRouter>
     )
 
